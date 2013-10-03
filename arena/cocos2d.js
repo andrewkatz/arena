@@ -40,6 +40,7 @@
         appFiles:[
             'lib/resource.js',
             'lib/player.js',
+            'lib/opponent.js',
             'lib/game.js'
         ]
     };

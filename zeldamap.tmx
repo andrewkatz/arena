@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="14" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Mountains" tilewidth="32" tileheight="32">
+  <image source="../../Downloads/mountains.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Grass BG" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJyrZWBgqB0GOB4L5gFiXipgPjx2yACxLBDbALEtmdgOiOWIsMMHiH3JxH5AXIBkRwISpqYdslAcj2QPtf0BswPZbFrZQQ9/0DLOke1ADy9axkcCjexANz+BBnYEALE/Eg0qR/KhcjFAHEsmjkOyAwAXn2rl
+  </data>
+ </layer>
+ <layer name="Mountains n shit" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJy9k8ENwjAMRb1BvEGzC732VA7c4cAgLAYb0A1gA5gAI/VLv1YSOQew9PTV2vl23XYUkZ0xVrSVi+jF2BtzRQ+NXESvxs04GceKnhu5iN6NRX4bD+MZqEuGriRCqWZwitzLeAd6wHtwHoy4+9+6HPBGYOZEsyqpUp1QTW8oKfwZPKcWT8f8MVcu+HFflb4dcfh3mUiVarJs99rbAzvxM7Ov/956/CfZ7n1aga+/zp09sG/4lP4V7gX9d3wAq9UoYQ==
+  </data>
+ </layer>
+ <layer name="grass 4" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFxIIP9LCEkR6W0B78HrVj1I5RO3ACANtOCMo=
+  </data>
+ </layer>
+ <layer name="grass 3" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIw28HrVj1I5ROwYUAADNaQdZ
+  </data>
+ </layer>
+ <layer name="grass 2" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgwncHgZ2/KWDHXfoYMcfOtjxdpjYcY8OdoDi4zUd7KA1AMUHAGyVEDY=
+  </data>
+ </layer>
+ <layer name="grass" width="25" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFxIKzQMwDxHw0tOM0EOsAsR6N7aAlOENjO0Dx8IYOdtylsR0MdLLjHB3seEMDMx2AOBaI4xgQcU5t4AfEOUCcB+WD4uM3le0Aub8HiPsYIP74C8QATJEWiw==
+  </data>
+ </layer>
+</map>

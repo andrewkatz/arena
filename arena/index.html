@@ -8,10 +8,17 @@
           href="res/Images/favicon.ico"/>
 </head>
 <body style="text-align: center;background: #000;">
-  <h1 style="color: #fff; font-family: sans-serif;">Arena</h1>
+  <h1 style="color: #fff; ">Arena</h1>
   <div style="display:inline-block;width:auto; margin: 0 auto; background: black; position:relative; border: 1px solid #111;">
     <canvas id="gameCanvas" width="800" height="450"></canvas>
   </div>
+
+  <h1 style="color: #fff">Game Id: <span id="gameId"></span></h1>
+  <h2 style="color: #fff">Players</h2>
+  <div id="playersList" style="color: #fff;"></div>
+
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script src="cocos2d.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
 </body>
 </html>

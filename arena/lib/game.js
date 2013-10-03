@@ -2,20 +2,114 @@
 (function() {
   window.GameLayer = cc.Layer.extend({
     _player: null,
+    _playerId: null,
+    _gameId: null,
+    _serverRef: null,
+    _gameRef: null,
+    _players: [],
+    _playersLabel: null,
+    _opponents: [],
     init: function() {
-      var size, tileMap;
       this._super();
-      size = cc.Director.getInstance().getWinSize();
-      tileMap = cc.TMXTiledMap.create(s_brick_tmx, s_brick);
-      this.addChild(tileMap);
-      this._player = Player.create();
-      this._player.setPosition(size.width / 2, size.height / 2);
-      this.addChild(this._player);
-      if (sys.capabilities.hasOwnProperty("keyboard")) {
-        this.setKeyboardEnabled(true);
-      }
+      this._initServer();
+      this._initTileMap();
+      this._initPlayer();
+      this.setKeyboardEnabled(true);
       this.scheduleUpdate();
       return true;
+    },
+    _initServer: function() {
+      var params, playersRef,
+        _this = this;
+      this._serverRef = new Firebase("https://arena-game.firebaseio.com/");
+      params = this._params();
+      this._gameId = params["gameId"] || this._randomId();
+      this._playerId = params["playerId"] || this._randomId();
+      console.log("GameId: " + this._gameId);
+      console.log("PlayerId: " + this._playerId);
+      $("#gameId").html(this._gameId);
+      this._gameRef = this._serverRef.child(this._gameId);
+      this._gameRef.child("started").once("value", function(snapshot) {
+        var started;
+        started = snapshot.val();
+        if (started === "true") {
+          return _this._startGame();
+        }
+      });
+      playersRef = this._gameRef.child("players");
+      playersRef.on("child_added", function(snapshot) {
+        return _this._addPlayer(snapshot.val()["playerId"]);
+      });
+      if (!this._playerExists(this._playerId)) {
+        return playersRef.push({
+          playerId: this._playerId
+        });
+      }
+    },
+    _startGame: function() {
+      return console.log("Start game");
+    },
+    _gameAlreadyStarted: function() {},
+    _params: function() {
+      var i, params, prmarr, prmstr, tmparr, _i, _ref;
+      prmstr = window.location.search.substr(1);
+      prmarr = prmstr.split("&");
+      params = {};
+      for (i = _i = 0, _ref = prmarr.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        tmparr = prmarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+      }
+      return params;
+    },
+    _randomId: function() {
+      var i, possible, text, _i;
+      text = "";
+      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (i = _i = 0; _i <= 4; i = ++_i) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    },
+    _addPlayer: function(playerId) {
+      var opponent;
+      if (!this._playerExists(playerId)) {
+        this._players.push(playerId);
+        this._drawPlayersList();
+        if (playerId !== this._playerId) {
+          opponent = Opponent.create(playerId, this._gameRef);
+          this._opponents.push(opponent);
+          return this.addChild(opponent);
+        }
+      }
+    },
+    _playerExists: function(playerId) {
+      return this._players.indexOf(playerId) > -1;
+    },
+    _initPlayer: function() {
+      var size;
+      size = cc.Director.getInstance().getWinSize();
+      this._player = Player.create(this._playerId, this._gameRef);
+      this._player.setPosition(size.width / 2, size.height / 2);
+      return this.addChild(this._player);
+    },
+    _initTileMap: function() {
+      var tileMap;
+      tileMap = cc.TMXTiledMap.create(s_brick_tmx, s_brick);
+      return this.addChild(tileMap);
+    },
+    _drawPlayersList: function() {
+      var playerId, playersList;
+      playersList = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this._players;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          playerId = _ref[_i];
+          _results.push("<li>" + playerId + "</li>");
+        }
+        return _results;
+      }).call(this);
+      return $("#playersList").html("<ul>" + playersList + "</ul>");
     },
     update: function() {
       return this._player.update();
